@@ -31,4 +31,8 @@ public class OrderItemEntity {
     private Double price;
 
 
+    @OneToOne
+    @JoinColumn(name = "id_pizza", referencedColumnName = "id_pizza", insertable = false, updatable = false)
+    private PizzaEntity pizza;
+
 }
