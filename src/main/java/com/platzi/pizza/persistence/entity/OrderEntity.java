@@ -1,11 +1,13 @@
 package com.platzi.pizza.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "pizza_order")
@@ -33,5 +35,14 @@ public class OrderEntity {
 
     @Column(name = "additional_notes", length = 200)
     private String additionalNotes;
+
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_customer", referencedColumnName = "id_customer", insertable = false, updatable = false)
+    @JsonIgnore
+    private CustomerEntity customer;
+
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
+    private List<OrderItemEntity> items;
 
 }
